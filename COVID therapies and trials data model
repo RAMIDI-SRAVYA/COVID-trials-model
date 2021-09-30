@@ -1,0 +1,64 @@
+
+//https://dbdiagram.io/d
+
+//// -- Tables and References
+
+// Creating tables
+Table Leading_vaccination {
+  test_id int
+  positive_results int 
+  negative_results int
+  subjects_enrolled int
+  funding_source varchar
+  biotech_company_experience int
+  mechanism_of_vaccine varchar
+}
+
+Table Tests {
+  test_id int
+  patient_id int
+  nationality varchar
+  age_groupt int
+  gender varchar
+  social_strata varchar
+  vaccine_id int
+  batch_no int
+}
+
+Table manufacturing {
+  vaccine_id int
+  company_id int
+  vaccine_name varchar
+  vaccine_type varchar
+  quantity_available int
+  manufacturing_capacity int
+}
+
+Table company {
+  company_id int
+  company_name varchar
+  license_id varchar
+  address varchar
+  established_year numeric
+}
+
+Table distribution {
+  batch_no numeric
+  company_id int
+  no_of_visits int
+  storage_equipment_type varchar
+  equipment_quantity int
+}
+
+Table Patient {
+  patient_id int
+  patient_name varchar
+  aadhaar_no numeric
+}
+
+Ref: "manufacturing"."company_id" < "company"."company_id"
+Ref: "Tests"."vaccine_id" < "manufacturing"."vaccine_id"
+Ref: "Leading_vaccination"."test_id" < "Tests"."test_id"
+Ref: "Tests"."patient_id" < "Patient"."patient_id"
+Ref: "distribution"."company_id" < "company"."company_id"
+Ref: "Tests"."batch_no" < "distribution"."batch_no"
